@@ -554,13 +554,93 @@
     <audio id="background-music" src="Rose Day Love.mp3" loop></audio>
 
     <script>
-        // JavaScript remains unchanged
+        // JavaScript for drag-and-drop functionality
         let key = document.getElementById("key");
         let lock = document.getElementById("lock");
         let leftHalf = document.getElementById("left-half");
         let rightHalf = document.getElementById("right-half");
         let isDragging = false;
 
+        // Mouse event listeners
+        key.addEventListener("mousedown", function(event) {
+            isDragging = true;
+        });
+
+        document.addEventListener("mousemove", function(event) {
+            if (isDragging) {
+                key.style.left = event.clientX - key.offsetWidth / 2 + "px";
+                key.style.top = event.clientY - key.offsetHeight / 2 + "px";
+            }
+        });
+
+        document.addEventListener("mouseup", function(event) {
+            isDragging = false;
+            checkKeyLockOverlap();
+        });
+
+        // Touch event listeners
+        key.addEventListener("touchstart", function(event) {
+            event.preventDefault(); // Prevent default touch behavior
+            isDragging = true;
+        });
+
+        document.addEventListener("touchmove", function(event) {
+            if (isDragging) {
+                const touch = event.touches[0]; // Get the first touch point
+                key.style.left = touch.clientX - key.offsetWidth / 2 + "px";
+                key.style.top = touch.clientY - key.offsetHeight / 2 + "px";
+            }
+        });
+
+        document.addEventListener("touchend", function(event) {
+            isDragging = false;
+            checkKeyLockOverlap();
+        });
+
+        // Function to check if the key overlaps with the lock
+        function checkKeyLockOverlap() {
+            let keyRect = key.getBoundingClientRect();
+            let lockRect = lock.getBoundingClientRect();
+
+            if (
+                keyRect.left < lockRect.right &&
+                keyRect.right > lockRect.left &&
+                keyRect.top < lockRect.bottom &&
+                keyRect.bottom > lockRect.top
+            ) {
+                key.style.transform = "scale(0.1)";
+                key.style.opacity = "0";
+                lock.textContent = "🔓";
+                lock.style.backgroundColor = "#4CAF50";
+                lock.style.animation = "dropLock 1s ease-in-out forwards";
+
+                setTimeout(() => {
+                    leftHalf.style.transform = "translateX(-100%)";
+                    rightHalf.style.transform = "translateX(100%)";
+                    document.getElementById("flower-sprinkle").style.display = "block";
+                }, 500);
+
+                setTimeout(() => {
+                    document.getElementById("rose-animation").style.display = "block";
+                    document.getElementById("rose-animation").classList.add("show-lyrics");
+                    lock.style.display = "none";
+
+                    let audio = document.getElementById("background-music");
+                    audio.play().catch(error => {
+                        console.error("Audio playback failed:", error);
+                    });
+
+                    setTimeout(() => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }, 87000);
+
+                    displayLyrics();
+                }, 1500);
+            }
+        }
+
+        // Lyrics display logic
         const lyrics = [
             { text: "In a garden of dreams 💭💤, by the moon's🌜soft light💫,", start: 6.5, end: 13.18 },
             { text: "I found a rose🌹 named 🎀Heng🥰, on a starry night🌃.", start: 12.19, end: 19.7 },
@@ -611,60 +691,6 @@
 
             updateLyrics();
         }
-
-        key.addEventListener("mousedown", function(event) {
-            isDragging = true;
-        });
-
-        document.addEventListener("mousemove", function(event) {
-            if (isDragging) {
-                key.style.left = event.clientX - key.offsetWidth / 2 + "px";
-                key.style.top = event.clientY - key.offsetHeight / 2 + "px";
-            }
-        });
-
-        document.addEventListener("mouseup", function(event) {
-            isDragging = false;
-            let keyRect = key.getBoundingClientRect();
-            let lockRect = lock.getBoundingClientRect();
-            
-            if (
-                keyRect.left < lockRect.right &&
-                keyRect.right > lockRect.left &&
-                keyRect.top < lockRect.bottom &&
-                keyRect.bottom > lockRect.top
-            ) {
-                key.style.transform = "scale(0.1)";
-                key.style.opacity = "0";
-                lock.textContent = "🔓";
-                lock.style.backgroundColor = "#4CAF50";
-                lock.style.animation = "dropLock 1s ease-in-out forwards";
-
-                setTimeout(() => {
-                    leftHalf.style.transform = "translateX(-100%)";
-                    rightHalf.style.transform = "translateX(100%)";
-                    document.getElementById("flower-sprinkle").style.display = "block";
-                }, 500);
-
-                setTimeout(() => {
-                    document.getElementById("rose-animation").style.display = "block";
-                    document.getElementById("rose-animation").classList.add("show-lyrics");
-                    lock.style.display = "none";
-
-                    let audio = document.getElementById("background-music");
-                    audio.play().catch(error => {
-                        console.error("Audio playback failed:", error);
-                    });
-
-                    setTimeout(() => {
-                        audio.pause();
-                        audio.currentTime = 0;
-                    }, 87000);
-
-                    displayLyrics();
-                }, 1500);
-            }
-        });
     </script>
 </body>
 </html>
