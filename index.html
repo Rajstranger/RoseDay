@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌹 Happy Rose Day, My Love! 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rockybilly&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
+    <style>
+        /* Base CSS (unchanged) */
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(#fbb6c7, #d639c1);
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+        }
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        .half {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(#cfbffa, #11053f);
+            position: absolute;
+            transition: transform 1.2s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #left-half {
+            left: 0;
+        }
+        #right-half {
+            right: 0;
+        }
+        #lock {
+            width: 80px;
+            height: 100px;
+            background: #d00000;
+            position: absolute;
+            bottom: 45%;
+            left: 50%;
+            transform: translate(-50%, 50%);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 70px;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 15px;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        #key {
+            width: 120px;
+            height: 120px;
+            background: transparent;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: grab;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 50px;
+            font-weight: bold;
+            color: #ffeb3b;
+            z-index: 10;
+            transition: transform 0.2s ease-in-out;
+        }
+        #key:active {
+            transform: scale(1.1);
+        }
+        h1 {
+            position: absolute;
+            top: 10%;
+            color: rgb(255, 0, 0);
+            font-size: 30px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            font-family: 'Rockybilly', sans-serif;
+        }
+        .flower {
+            position: absolute;
+            top: -50px;
+            animation: sprinkle 3s ease-in infinite;
+            opacity: 0;
+            font-size: 60px;
+        }
+        @keyframes sprinkle {
+            0% {
+                top: -50px;
+                opacity: 1;
+                transform: scale(0.5);
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: scale(1);
+            }
+        }
+        .rose { left: 10%; animation-delay: 1s; }
+        .daisy { left: 20%; animation-delay: 2.5s; }
+        .tulip { left: 30%; animation-delay: 3s; }
+        .orchid { left: 40%; animation-delay: 1.5s; }
+        .lily { left: 50%; animation-delay: 2.7s; }
+        .sunflower { left: 60%; animation-delay: 2.5s; }
+        .cherry-blossom { left: 70%; animation-delay: 3s; }
+
+        .rose2 { left: 90%; animation-delay: 3.3s; }
+        .daisy2 { left: 80%; animation-delay: 2.5s; }
+        .tulip2 { left: 70%; animation-delay: 1.4s; }
+        .orchid2 { left: 60%; animation-delay: 1.8s; }
+        .lily2 { left: 55%; animation-delay: 2.2s; }
+        .sunflower2 { left: 40%; animation-delay: 2.7s; }
+        .cherry-blossom2 { left: 30%; animation-delay: 1.2s; }
+
+        @keyframes dropLock {
+            0% {
+                transform: translate(-50%, 50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, 100vh) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Rose Animation CSS (unchanged) */
+        .rose-animation {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(#fbb6c7, #d639c1);
+            overflow: hidden;
+            text-align: center;
+            justify-content: center;
+            display: none;
+        }
+        .container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .glass {
+            height: 500px;
+            width: 200px;
+        }
+        .petals > div {
+            position: absolute;
+            width: 45px;
+            height: 80px;
+            background: #d52d58;
+            top: 55px;
+            left: 80px;
+            opacity: 0;
+            transform-origin: bottom;
+            animation: bloom 3s ease-in-out forwards;
+        }
+        .petals > div:nth-child(1) {
+            border-radius: 15px;
+            box-shadow: 0px 0px 30px #f594b8;
+            left: 80px;
+            top: 60px;
+            background: #d52d58;
+            animation: bloomCenter 2s ease-in-out 4.5s forwards;
+        }
+        .petals > div:nth-child(2),
+        .petals > div:nth-child(4),
+        .petals > div:nth-child(6) {
+            background: #b81b43;
+            left: 60px;
+            border-radius: 0px 30px 0px 30px;
+            transform-origin: bottom right;
+        }
+        .petals > div:nth-child(3),
+        .petals > div:nth-child(5),
+        .petals > div:nth-child(7) {
+            background: #b81b43;
+            left: 100px;
+            border-radius: 30px 0px 30px 0px;
+            transform-origin: bottom left;
+        }
+        .petals > div:nth-child(2) { animation-delay: 3.2s; }
+        .petals > div:nth-child(3) { animation-delay: 3.4s; }
+        .petals > div:nth-child(4) { animation-delay: 3.6s; }
+        .petals > div:nth-child(5) { animation-delay: 3.8s; }
+        .petals > div:nth-child(6) { animation-delay: 4s; }
+        .petals > div:nth-child(7) { animation-delay: 4.2s; }
+        .petals > div:nth-child(2) {
+            z-index: 5;
+            background: #ab1a3f;
+            top: 75px;
+            height: 70px;
+            animation: bloom2 3s ease-in-out 4.5s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .petals > div:nth-child(3) {
+            z-index: 4;
+            background: #ab1a3f;
+            top: 75px;
+            height: 70px;
+            animation: bloom3 3s ease-in-out 4s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .petals > div:nth-child(4) {
+            z-index: 3;
+            background: #b81b43;
+            top: 70px;
+            height: 75px;
+            animation: bloom4 3s ease-in-out 4s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .petals > div:nth-child(5) {
+            z-index: 2;
+            background: #b81b43;
+            top: 70px;
+            height: 75px;
+            animation: bloom5 3s ease-in-out 4s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .petals > div:nth-child(6) {
+            z-index: 1;
+            background: #c9204b;
+            top: 65px;
+            height: 70px;
+            animation: bloom6 3s ease-in-out 4s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .petals > div:nth-child(7) {
+            z-index: 0;
+            background: #c9204b;
+            top: 65px;
+            height: 70px;
+            animation: bloom7 3s ease-in-out 4s forwards, glowing 2.5s ease-in-out infinite 6s;
+        }
+        .leaves > div:nth-child(1) {
+            position: absolute;
+            width: 6px;
+            height: 0;
+            background: #054c05;
+            top: 95px;
+            left: 100px;
+            border-radius: 0 0 100px 100px;
+            animation: growStem 2s ease-in-out;
+            animation-fill-mode: forwards;
+        }
+        .leaves > div:nth-child(2) {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 53px;
+            border-radius: 5px 40px 20px 40px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(-30deg);
+            top: 180px;
+            left: 80px;
+            box-shadow: inset 5px 5px #066406;
+            animation: growLeaf 2s ease-in-out 2s;
+            animation-fill-mode: forwards;
+        }
+        .leaves > div:nth-child(3) {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 53px;
+            border-radius: 40px 5px 40px 20px;
+            background: #054c05;
+            transform-origin: bottom;
+            transform: rotate(30deg);
+            top: 150px;
+            left: 95px;
+            box-shadow: inset -5px 5px #066406;
+            animation: growLeaf 2s ease-in-out 2s;
+            animation-fill-mode: forwards;
+        }
+        .thorns > div {
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 140px;
+        }
+        .thorns > div:nth-child(odd) {
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid #054c05;
+            left: 105px;
+        }
+        .thorns > div:nth-child(even) {
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 5px solid #054c05;
+            left: 95px;
+        }
+        .thorns > div:nth-child(1) {
+            top: 200px;
+        }
+        .thorns > div:nth-child(2) {
+            top: 170px;
+        }
+        .thorns > div:nth-child(4) {
+            top: 230px;
+        }
+        @keyframes growStem {
+            0% { height: 0; }
+            100% { height: 210px; }
+        }
+        @keyframes growLeaf {
+            0% { width: 0; height: 0; }
+            100% { width: 30px; height: 50px; }
+        }
+        @keyframes bloom {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes bloomCenter {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes bloom2 {
+            50% { transform: rotate(-90deg); top: 200px; left: 100px; }
+            100% { transform: scale(1) rotate(-60deg); opacity: 1; top: 252px; left: 50px; background: #71122a; box-shadow: 0px 0px 0px rgba(245, 148, 184, 0); }
+        }
+        @keyframes bloom3 {
+            100% { transform: scale(1) rotate(45deg); opacity: 1; }
+        }
+        @keyframes bloom4 {
+            100% { transform: scale(1) rotate(-20deg); opacity: 1; }
+        }
+        @keyframes bloom5 {
+            100% { transform: scale(1) rotate(20deg); opacity: 1; }
+        }
+        @keyframes bloom6 {
+            100% { transform: scale(1) rotate(-5deg); opacity: 1; }
+        }
+        @keyframes bloom7 {
+            100% { transform: scale(1) rotate(5deg); opacity: 1; }
+        }
+        @keyframes glowing {
+            50% { background: #d7365f; box-shadow: 0px 0px 60px #f594b8; }
+        }
+        @keyframes falling {
+            20% { top: 335px; background: #f8f7f7; box-shadow: 0px 0px 0px rgba(245, 148, 184, 0); }
+            100% { top: 335px; opacity: 0; }
+        }
+
+        /* Lyrics container styles */
+        .lyrics-container {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 250px;
+            color: rgb(99, 2, 2);
+            font-size: 30px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.5;
+            font-family: "Courgette", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        #left-lyrics {
+            left: 10%;
+        }
+
+        #right-lyrics {
+            right: 10%;
+        }
+
+        /* Show lyrics when the rose animation starts */
+        #rose-animation.show-lyrics .lyrics-container {
+            opacity: 1;
+        }
+
+        .message {
+            position: absolute;
+            bottom: -15%;
+            width: 500px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #720101;
+            font-family: 'Courgette', cursive;
+            font-size: 20px;
+            text-align: center;
+            line-height: 1.5;
+            text-shadow: 2px 2px 4px rgba(43, 20, 20, 0.5);
+            opacity: 0;
+            display: block;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Responsive Design for Smartphones */
+        @media only screen and (max-width: 768px) {
+            h1 {
+                font-size: 24px; /* Smaller font size for mobile */
+                top: 5%; /* Adjust position */
+            }
+
+            #lock {
+                width: 60px; /* Smaller lock */
+                height: 80px;
+                font-size: 50px;
+            }
+
+            #key {
+                width: 80px; /* Smaller key */
+                height: 80px;
+                font-size: 40px;
+            }
+
+            .lyrics-container {
+                width: 200px; /* Smaller lyrics container */
+                font-size: 20px; /* Smaller font size */
+            }
+
+            .message {
+                bottom: -25%; /* Move the message further down */
+                width: 90%; /* Ensure it fits within the screen */
+                font-size: 16px; /* Adjust font size for better readability */
+                left: 50%; /* Center the message */
+                transform: translateX(-50%); /* Ensure it stays centered */
+            }
+
+            .container {
+                transform: translate(-50%, -50%) scale(0.8); /* Scale down rose animation */
+            }
+        }
+
+        /* Responsive Design for Laptops */
+        @media only screen and (min-width: 769px) {
+            h1 {
+                font-size: 30px; /* Larger font size for laptops */
+            }
+
+            #lock {
+                width: 80px;
+                height: 100px;
+                font-size: 70px;
+            }
+
+            #key {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+
+            .lyrics-container {
+                width: 250px;
+                font-size: 30px;
+            }
+
+            .message {
+                width: 500px;
+                font-size: 20px;
+            }
+
+            .container {
+                transform: translate(-50%, -50%) scale(1); /* Normal size for laptops */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🌹 Happy Rose Day, My Love! 🌹</h1>
+    <div id="container">
+        <div id="left-half" class="half"></div>
+        <div id="right-half" class="half"></div>
+    </div>
+    <div id="lock">🔒</div>
+    <div id="key">🔑</div>
+    
+    <!-- Flower sprinkle elements -->
+    <div id="flower-sprinkle" style="display: none;">
+        <div class="flower rose">🌹</div>
+        <div class="flower daisy">🌼</div>
+        <div class="flower tulip">🏵️</div>
+        <div class="flower orchid">🌸</div>
+        <div class="flower lily">🌺</div>
+        <div class="flower sunflower">🌻</div>
+        <div class="flower cherry-blossom">💐</div>
+
+        <div class="flower rose2">🍂</div>
+        <div class="flower daisy2">🌼</div>
+        <div class="flower tulip2">🏵️</div>
+        <div class="flower orchid2">🌸</div>
+        <div class="flower lily2">🍂</div>
+        <div class="flower sunflower2">🌻</div>
+        <div class="flower cherry-blossom2">💐</div>
+    </div>
+    
+    <!-- Rose Animation from Code 2 -->
+    <div id="rose-animation" class="rose-animation">
+        <div class="container">
+            <div class="glass">
+                <div class="shine"></div>
+            </div>
+            <div class="message">
+                To my dearest Bubu 🌹,<br>
+                On this Rose Day, I want you to know that<br>
+                you are the most beautiful rose in my garden of life.<br>
+                With every petal, my love for you grows deeper.<br>
+                Forever yours,<br>
+                Your Dudu 💖
+            </div>
+            <div class="thorns">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="leaves">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="petals">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="deadPetals">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- Lyrics containers -->
+        <div id="left-lyrics" class="lyrics-container"></div>
+        <div id="right-lyrics" class="lyrics-container"></div>
+    </div>
+
+    <!-- Audio element for the song -->
+    <audio id="background-music" src="../Feb Song/Rose Day Love.mp3" loop></audio>
+
+    <script>
+        // JavaScript remains unchanged
+        let key = document.getElementById("key");
+        let lock = document.getElementById("lock");
+        let leftHalf = document.getElementById("left-half");
+        let rightHalf = document.getElementById("right-half");
+        let isDragging = false;
+
+        const lyrics = [
+            { text: "In a garden of dreams 💭💤, by the moon's🌜soft light💫,", start: 6.5, end: 13.18 },
+            { text: "I found a rose🌹 named 🎀Heng🥰, on a starry night🌃.", start: 12.19, end: 19.7 },
+            { text: "With petals🍁 of love🫶🏻, and a scent so true💯,", start: 19.9, end: 26.71 },
+            { text: "for my darling🥹 Bubu💖 skies ﾟ☁︎｡ turn blue.", start: 27.21, end: 32.54 },
+            { text: "🚶🏽Walking hand🫴🏼 in Heng💝, past shadows and trees🌴,", start: 33.55, end: 40.21 },
+            { text: "whispering secrets💌 carried on the breeze💨.", start: 40.92, end: 46.96 },
+            { text: "Your laughter😁, a melody⋆♪♬ soft🫠 and sweet😋,", start: 45.97, end: 53.38 },
+            { text: "with every heartbeat💓 our souls meet🫂.", start: 54.19, end: 59.5 },
+            { text: "Rose🌷days here, 🌍Bubu🫵🏻 time to celebrate🤩,", start: 59.9, end: 66.34 },
+            { text: "👩🏻‍❤️‍💋‍👨🏻our love's💫💞🫶story that we create💞🔗.", start: 67.34, end: 72.33 },
+            { text: "Through every trial⌛⚔️ and every fight😡👊😤,", start: 73.34, end: 80.35 },
+            { text: "your🫵 love is my😫 guiding light🧿✨.", start: 81.06, end: 85.09 }
+        ];
+
+        function displayLyrics() {
+            const leftLyrics = document.getElementById("left-lyrics");
+            const rightLyrics = document.getElementById("right-lyrics");
+            const audio = document.getElementById("background-music");
+            const message = document.querySelector(".message");
+
+            function updateLyrics() {
+                const currentTime = audio.currentTime;
+                const currentLine = lyrics.find(line => currentTime >= line.start && currentTime <= line.end);
+
+                if (currentLine) {
+                    if (lyrics.indexOf(currentLine) % 2 === 0) {
+                        leftLyrics.textContent = currentLine.text;
+                        rightLyrics.textContent = "";
+                    } else {
+                        rightLyrics.textContent = currentLine.text;
+                        leftLyrics.textContent = "";
+                    }
+                } else {
+                    leftLyrics.textContent = "";
+                    rightLyrics.textContent = "";
+                }
+
+                if (currentTime >= lyrics[lyrics.length - 1].end) {
+                    leftLyrics.style.opacity = "0";
+                    rightLyrics.style.opacity = "0";
+                    message.style.opacity = "1";
+                    message.style.display = "block";
+                } else {
+                    requestAnimationFrame(updateLyrics);
+                }
+            }
+
+            updateLyrics();
+        }
+
+        key.addEventListener("mousedown", function(event) {
+            isDragging = true;
+        });
+
+        document.addEventListener("mousemove", function(event) {
+            if (isDragging) {
+                key.style.left = event.clientX - key.offsetWidth / 2 + "px";
+                key.style.top = event.clientY - key.offsetHeight / 2 + "px";
+            }
+        });
+
+        document.addEventListener("mouseup", function(event) {
+            isDragging = false;
+            let keyRect = key.getBoundingClientRect();
+            let lockRect = lock.getBoundingClientRect();
+            
+            if (
+                keyRect.left < lockRect.right &&
+                keyRect.right > lockRect.left &&
+                keyRect.top < lockRect.bottom &&
+                keyRect.bottom > lockRect.top
+            ) {
+                key.style.transform = "scale(0.1)";
+                key.style.opacity = "0";
+                lock.textContent = "🔓";
+                lock.style.backgroundColor = "#4CAF50";
+                lock.style.animation = "dropLock 1s ease-in-out forwards";
+
+                setTimeout(() => {
+                    leftHalf.style.transform = "translateX(-100%)";
+                    rightHalf.style.transform = "translateX(100%)";
+                    document.getElementById("flower-sprinkle").style.display = "block";
+                }, 500);
+
+                setTimeout(() => {
+                    document.getElementById("rose-animation").style.display = "block";
+                    document.getElementById("rose-animation").classList.add("show-lyrics");
+                    lock.style.display = "none";
+
+                    let audio = document.getElementById("background-music");
+                    audio.play().catch(error => {
+                        console.error("Audio playback failed:", error);
+                    });
+
+                    setTimeout(() => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }, 87000);
+
+                    displayLyrics();
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
